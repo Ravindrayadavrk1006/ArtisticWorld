@@ -1,0 +1,22 @@
+.shoppingcartlogo{
+    height:30px ;
+    width: 38px;
+    padding-left:10px;
+    padding-bottom: 8px;
+}
+
+.shoppingcart{
+    padding-bottom:5px;
+}
+.dropdown-toggle{
+    cursor: pointer;
+}
+/* .dpt{
+    padding-top:11px;
+    cursor: pointer;
+} */
+.profileicon{
+    padding-bottom: 8px;
+    height:31px ;
+    width: 38px;
+}
