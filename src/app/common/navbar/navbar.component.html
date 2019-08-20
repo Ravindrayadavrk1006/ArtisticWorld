@@ -21,7 +21,7 @@
         </ng-template>
        
      
-        <li *ngIf="user$|async as user;else anonymousUser" class="nav-item dropdown">
+        <li *ngIf="auth.user$|async as user;else anonymousUser" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle  " id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img class="profileicon" src="assets/images/profileicon.svg" alt="">
             {{user.displayName}}

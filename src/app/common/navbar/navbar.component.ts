@@ -11,8 +11,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
   loggedUser:firebase.User;
   user$:Observable<firebase.User>
   private subscription:Subscription;
-  constructor(private auth:AuthService) {
-    this.user$=this.auth.user$
+  constructor(public auth:AuthService) {
+    // this.user$=this.auth.user$
     //  this.subscription=this.auth.usersubs.subscribe(user=>{
     //   console.log(user);
     //   this.loggedUser=user;
