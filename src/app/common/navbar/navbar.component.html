@@ -11,15 +11,20 @@
             <img class="shoppingcartlogo"src="assets/images/shopping-cart.svg" alt="">
             ShoppingCart</a>
         </li>
-        <li *ngIf="!loggedUser">
-         <a  routerLink="/login" class="nav-link">
-          <img class="profileicon"src="assets/images/profileicon.svg" alt="">
-          Login</a>
-      </li>
-        <li *ngIf="loggedUser" class="nav-item dropdown">
+        <ng-template #anonymousUser >
+            <li >
+              <a  routerLink="/login" class="nav-link">
+                 <img class="profileicon"src="assets/images/profileicon.svg" alt="">
+                 Login</a>
+            </li>
+
+        </ng-template>
+       
+     
+        <li *ngIf="user$|async as user;else anonymousUser" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle  " id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img class="profileicon" src="assets/images/profileicon.svg" alt="">
-            {{loggedUser.displayName}}
+            {{user.displayName}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" routerLink="/my/orders">MyOrders</a>

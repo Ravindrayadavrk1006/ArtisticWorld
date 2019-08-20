@@ -1,3 +1,4 @@
+import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 // import { LoginComponent } from './login/login.component';
@@ -48,16 +49,16 @@ import { FormsModule } from '@angular/forms';
       {path:'my/orders',component:MyOrdersComponent},
       {path:'products',component:ProductsComponent},
       {path:'shopping-cart',component:ShoppingCartComponent},
-      {path:'check-out',component:CheckOutComponent},
+      {path:'check-out',component:CheckOutComponent,canActivate:[AuthGuard]},
       {path:'order-success',component:OrderSuccessComponent},
-      // {path:'login',component:LoginComponent},
       // for admin
-      {path:'admin/products',component:AdminProductsComponent},
-      {path:'admin/orders',component:AdminOrdersComponent}
+      {path:'admin/products',component:AdminProductsComponent,canActivate:[AuthGuard]},
+      {path:'admin/orders',component:AdminOrdersComponent,canActivate:[AuthGuard]}
     ])
   ],
   providers: [AngularFireAuth,
               AuthService,
+              AuthGuard
             ],
   bootstrap: [AppComponent]
 })
