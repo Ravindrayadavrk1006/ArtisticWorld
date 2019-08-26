@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase'
 import {AngularFireAuth} from 'angularfire2/auth'
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 // import {AngularFireAuth} from angularfire2/auth
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth:AuthService) { 
+  constructor(private auth:AuthService,private userService:UserService) { 
     // this.afAuth.authState.subscribe(userResponse => {
     //   if (userResponse) {
     //     localStorage.setItem('user', JSON.stringify(userResponse));
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
   login()
   {
+    
     this.auth.login();
   }
 
