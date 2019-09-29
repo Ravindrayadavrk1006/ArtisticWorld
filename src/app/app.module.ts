@@ -1,9 +1,13 @@
+import { ProductService } from './product.service';
+import { CategoryService } from './category.service';
 import { AdminAuthGuardService as AdminAuthGuard } from './admin-auth-guard.service';
 import { UserService } from './user.service';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { CustomFormsModule } from 'ng2-validation'
 // import { LoginComponent } from './login/login.component';
+// import {FormsModule} from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
@@ -25,6 +29,7 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { LoginComponent } from './login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { FormsModule } from '@angular/forms';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,11 +42,13 @@ import { FormsModule } from '@angular/forms';
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent
   ],
   imports: [
     AngularFireAuthModule,
     FormsModule,
+    CustomFormsModule, 
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -55,15 +62,19 @@ import { FormsModule } from '@angular/forms';
       {path:'check-out',component:CheckOutComponent,canActivate:[AuthGuard]},
       {path:'order-success',component:OrderSuccessComponent},
       // for admin
+      {path:'admin/products/:id',component:ProductFormComponent,canActivate:[AdminAuthGuard]},
       {path:'admin/products',component:AdminProductsComponent,canActivate:[AdminAuthGuard]},
-      {path:'admin/orders',component:AdminOrdersComponent,canActivate:[AdminAuthGuard]}
+      {path:'admin/orders',component:AdminOrdersComponent,canActivate:[AdminAuthGuard]},
+      {path:'admin/products/new',component:ProductFormComponent,canActivate:[AdminAuthGuard]},
     ])
   ],
   providers: [AngularFireAuth,
               AuthService,
               AuthGuard,
               UserService,
-              AdminAuthGuard
+              AdminAuthGuard,
+              CategoryService,
+              ProductService,
             ],
   bootstrap: [AppComponent]
 })
