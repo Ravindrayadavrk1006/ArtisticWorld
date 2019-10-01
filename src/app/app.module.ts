@@ -30,6 +30,7 @@ import { LoginComponent } from './login/login.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { FormsModule } from '@angular/forms';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     RouterModule.forRoot([
-      {path:'',component:HomeComponent},
+      {path:'',component:ProductsComponent},
       {path:'login',component:LoginComponent},
       {path:'my/orders',component:MyOrdersComponent},
       {path:'products',component:ProductsComponent},

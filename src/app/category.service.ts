@@ -8,16 +8,17 @@ export class CategoryService {
 
   categories;
   constructor(private db:AngularFireDatabase) { }
-  getCategories()
+  getAll()
   {
-   
-    return this.db.list('/categories', ref => (ref.orderByChild('name')))
-    .snapshotChanges().pipe(
-      map(actions => 
-        actions.map(a => ({ key: a.key, ...a.payload.val() }))
-      )
-    );
+    return this.db.list('/categories').snapshotChanges().pipe(map(actions=>{
+      return actions.map(action=>({key: action.key, ...action.payload.val() }));
+    }));
+    // return this.db.list('/categories', ref => (ref.orderByChild('name')))
+    // .snapshotChanges().pipe(
+    //   map(actions => 
+    //     actions.map(a => ({ key: a.key, ...a.payload.val() }))
+    //   )
+    // );
   }
-
   
 }

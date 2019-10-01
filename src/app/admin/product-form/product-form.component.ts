@@ -8,9 +8,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 }) 
-export class ProductFormComponent implements OnInit,OnDestroy {
+export class ProductFormComponent implements OnInit,OnDestroy{
   categories$;
-  product={};
+  // product={};
+  product={title:'',price:0,category:'',imageUrl:''};
   id;
   private subs:Subscription;
   constructor(private categoryService:CategoryService,
@@ -19,12 +20,17 @@ export class ProductFormComponent implements OnInit,OnDestroy {
     private route:ActivatedRoute
     ) 
   { 
-    this.categories$=this.categoryService.getCategories();
+    this.categories$=this.categoryService.getAll();
     console.log(this.categories$);
     this.id=this.route.snapshot.paramMap.get('id');
     if (this.id)
        this.subs=this.productService.get(this.id).subscribe(p=>{
-        this.product=p;
+         console.log(p);
+        this.product.title=p['title'];
+        this.product.price=p['price'];
+        this.product.category=p['category'];
+        this.product.imageUrl=p['imageUrl'];
+        // this.product=p;
       });
   }
   save(product)
@@ -52,6 +58,5 @@ export class ProductFormComponent implements OnInit,OnDestroy {
   }
   ngOnInit() {
   }
-
 }
   
