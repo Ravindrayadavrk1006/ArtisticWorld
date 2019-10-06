@@ -11,7 +11,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class ProductFormComponent implements OnInit,OnDestroy{
   categories$;
   // product={};
-  product={title:'',price:0,category:'',imageUrl:''};
+  product={};
   id;
   private subs:Subscription;
   constructor(private categoryService:CategoryService,
@@ -20,18 +20,19 @@ export class ProductFormComponent implements OnInit,OnDestroy{
     private route:ActivatedRoute
     ) 
   { 
-    this.categories$=this.categoryService.getAll();
-    console.log(this.categories$);
-    this.id=this.route.snapshot.paramMap.get('id');
+    this.categories$ = categoryService.getAll();
+    this.id = this.route.snapshot.paramMap.get('id');
+    console.log("this.id=>"+this.id);
+    // this.categories$=this.categoryService.getAll();
+    // console.log(this.categories$);
+    // this.id=this.route.snapshot.paramMap.get('id');
     if (this.id)
        this.subs=this.productService.get(this.id).subscribe(p=>{
-         console.log(p);
-        this.product.title=p['title'];
-        this.product.price=p['price'];
-        this.product.category=p['category'];
-        this.product.imageUrl=p['imageUrl'];
+         console.log("got id",p);
+        this.product=p;
         // this.product=p;
       });
+      console.log('product=>'+this.product)
   }
   save(product)
   {
@@ -41,8 +42,6 @@ export class ProductFormComponent implements OnInit,OnDestroy{
     }
     else
     this.productService.create(product);
-    
-    console.log(product);
     this.router.navigate(['/admin/products']);
   }
   delete()
@@ -54,9 +53,14 @@ export class ProductFormComponent implements OnInit,OnDestroy{
   }
   ngOnDestroy()
   {
+    if(this.subs)
+    {
       this.subs.unsubscribe();
+    }
+     
   }
   ngOnInit() {
+    
   }
 }
   

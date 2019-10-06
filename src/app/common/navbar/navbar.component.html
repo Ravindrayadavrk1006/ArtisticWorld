@@ -9,7 +9,12 @@
         <li class="nav-item shoppingcart">
           <a routerLink="/shopping-cart" class="nav-link">
             <img class="shoppingcartlogo"src="assets/images/shopping-cart.svg" alt="">
-            ShoppingCart</a>
+            ShoppingCart
+            <span class="badge badge-warning badge-pill" *ngIf="cart$|async as cart">
+              <!-- {{shoppingCartItemCount }} -->
+              {{cart.totalItemsCount}}
+            </span>
+          </a>
         </li>
         <ng-template #anonymousUser >
             <li >

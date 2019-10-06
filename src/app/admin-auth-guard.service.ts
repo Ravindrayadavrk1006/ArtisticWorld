@@ -13,7 +13,7 @@ export class AdminAuthGuardService  {
   id:String
   constructor(private auth:AuthService,private userService:UserService,private db:AngularFireDatabase) { }
   canActivate(): Observable<boolean> {
-    return this.auth.user$.pipe(switchMap(user => this.userService.get(user.uid)))
+    return this.auth.user$.pipe(switchMap(user => this.userService.get(user['uid'])))
     .pipe(map((appUser: any) => appUser.isAdmin));  
    }
 }

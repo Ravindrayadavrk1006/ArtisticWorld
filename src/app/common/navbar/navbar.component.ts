@@ -1,3 +1,4 @@
+import { ShoppingCartService } from './../../shopping-cart.service';
 import { AppUser } from './../../models/app-user';
 import { UserService } from './../../user.service';
 import { AuthService } from './../../auth.service';
@@ -10,14 +11,18 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit,OnDestroy {
   loggedUser:firebase.User;
   // user$:Observable<firebase.User>
-  private subscription:Subscription;
-  appUser:AppUser
-  constructor(private auth:AuthService,private userService:UserService) {
-    var subs$=this.auth.user$.pipe(switchMap(user => this.userService.get(user.uid))).subscribe(AppUser=>{
+  subs$:Subscription;
+  appUser:AppUser;
+  shoppingCartItemCount:number;
+  constructor(private auth:AuthService,private userService:UserService
+    ,private shoppingCartService:ShoppingCartService) {
+     this.subs$=this.auth.user$.pipe(switchMap(user =>
+      this.userService.get(user['uid']))).subscribe(AppUser=>{
       this.appUser=AppUser;
+
     })
     // this.user$=this.auth.user$
     //  this.subscription=this.auth.usersubs.subscribe(user=>{
@@ -25,14 +30,23 @@ export class NavbarComponent implements OnInit {
     //   this.loggedUser=user;
     // })
    }
-  ngOnInit() {
+  async ngOnInit() {
+      let cart$ =await this.shoppingCartService.getCart();
+      cart$.subscribe(cart=>{
+        this.shoppingCartItemCount=0;
+        for(let productId in cart['items'] )
+        {
+          this.shoppingCartItemCount+=cart['items'][productId]['quantity'];
+        }
+      })
+
   }
   logout()
   {
     this.auth.logout();
   }
-  // ngOnDestroy()
-  // {
-  //   this.subscription.unsubscribe();
-  // }
+ ngOnDestroy()
+ {
+  this.subs$.unsubscribe();
+ }
 }
