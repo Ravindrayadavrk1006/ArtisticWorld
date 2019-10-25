@@ -4,6 +4,7 @@ import { Injectable,OnDestroy } from '@angular/core';
 import {Subscription, Observable} from 'rxjs'
 import { take } from 'rxjs/operators';
 import { ShoppingCart } from './models/shopping-cart';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -66,7 +67,8 @@ async removeItem(item: Product) {
 
 async clearCart() {
   let cartId = await this.getOrCreateCartId();
-  this.db.object('/shopping-carts/' + cartId + '/items').remove();
+  // localStorage.removeItem('cartId');
+  this.db.object('/shopping-carts/'+cartId+'/items' ).remove();
 }
 
 async addToCart(product: Product) {
@@ -105,6 +107,15 @@ private async getOrCreateCartId(): Promise<string>{
   localStorage.setItem('cartId', result.key);
   return result.key;
 }
+
+async getAll()
+{
+  let cartId = await this.getOrCreateCartId();
+  return this.db.list('/shopping-carts/' + cartId+'/items').snapshotChanges().pipe(map(actions=>{
+    return actions.map(action=>({key: action.key, ...action.payload.val() }));
+  }));
+}
+
 
 private async updateItem(product: Product, change: number) {
   let cartId = await this.getOrCreateCartId();

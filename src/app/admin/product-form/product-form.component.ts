@@ -22,17 +22,14 @@ export class ProductFormComponent implements OnInit,OnDestroy{
   { 
     this.categories$ = categoryService.getAll();
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log("this.id=>"+this.id);
     // this.categories$=this.categoryService.getAll();
     // console.log(this.categories$);
     // this.id=this.route.snapshot.paramMap.get('id');
     if (this.id)
        this.subs=this.productService.get(this.id).subscribe(p=>{
-         console.log("got id",p);
         this.product=p;
         // this.product=p;
       });
-      console.log('product=>'+this.product)
   }
   save(product)
   {

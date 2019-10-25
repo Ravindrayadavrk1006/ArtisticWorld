@@ -1,6 +1,52 @@
-<h1>Shopping Cart</h1>
+<!-- <h1>Shopping Cart</h1>
 <ng-container *ngIf="cart$|async as cart">
         <p>
                 You have {{ shoppingCartItemCount}} items in your shopping Cart
             </p>
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let productId of productIds">
+                    <td ><img id="imageId" [src]="cart['items'][productId]['imageUrl']" alt=""></td>
+                    <td>{{cart['items'][productId]['title']}}</td>
+                    <td>{{cart['items'][productId]['price']|currency:'INR':'symbol'}}</td>
+                    <td><button (click)="removeFromCart(cart['items'][productId],productId)" class="btn btn-danger">Remove from Cart</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+</ng-container> -->
+
+<h1>Shopping Cart</h1>
+<ng-container *ngIf="productCart$|async as cart">
+        <p>
+                You have {{ shoppingCartItemCount}} items in your shopping Cart
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                   <th>Product</th>
+                   <th>Price</th>
+                   <th>Key</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let c of cart'>
+                        <td ><img id="imageId" [src]="c['imageUrl']" alt="">{{c['title']}}</td>
+                      
+                        <td>{{c['price']|currency:'INR':'symbol'}}</td>
+                        <td>{{c['key']}}</td>
+                        <td><button (click)="removeFromCart(c)" class="btn btn-danger">Remove from Cart</button></td>
+                </tr>
+            </tbody>
+        </table>
 </ng-container>

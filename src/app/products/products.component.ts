@@ -31,13 +31,10 @@ export class ProductsComponent implements OnInit,OnDestroy {
       })
 
     });
-    
-       
    }
-
   async ngOnInit() {
     (await this.cartService.getCart())
-        .subscribe(cart=>this.cart=cart);
+        .subscribe(cart=>this.cart=cart)
   }
   ngOnDestroy()
   {

@@ -16,13 +16,13 @@ export class NavbarComponent implements OnInit,OnDestroy {
   // user$:Observable<firebase.User>
   subs$:Subscription;
   appUser:AppUser;
-  shoppingCartItemCount:number;
+  cart$;
+  shoppingCartItemCount:number=0;
   constructor(private auth:AuthService,private userService:UserService
     ,private shoppingCartService:ShoppingCartService) {
      this.subs$=this.auth.user$.pipe(switchMap(user =>
       this.userService.get(user['uid']))).subscribe(AppUser=>{
       this.appUser=AppUser;
-
     })
     // this.user$=this.auth.user$
     //  this.subscription=this.auth.usersubs.subscribe(user=>{
@@ -31,8 +31,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
     // })
    }
   async ngOnInit() {
-      let cart$ =await this.shoppingCartService.getCart();
-      cart$.subscribe(cart=>{
+      this.cart$ =await this.shoppingCartService.getCart();
+      this.cart$.subscribe(cart=>{
         this.shoppingCartItemCount=0;
         for(let productId in cart['items'] )
         {
