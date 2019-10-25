@@ -30,7 +30,7 @@
         <p>
                 You have {{ shoppingCartItemCount}} items in your shopping Cart
         </p>
-        <table class="table">
+        <table *ngIf=" shoppingCartItemCount>0" class="table">
             <thead>
                 <tr>
                     
