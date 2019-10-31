@@ -11,6 +11,7 @@ export class ShoppingCartComponent implements OnInit {
   cart$;
   productCart$;
   productIds=[];
+  totalPrice=0;
   constructor(private shoppingCartService:ShoppingCartService)
    {
     
@@ -23,12 +24,14 @@ export class ShoppingCartComponent implements OnInit {
     this.cart$.subscribe(cart=>{
       this.productIds=[];
       this.shoppingCartItemCount=0;
+      this.totalPrice=0;
       for(let productId in cart['items'] )
       {
         // console.log(productId);
         this.productIds.push(productId);
         // console.log(cart['items'][productId]['title'])  
         this.shoppingCartItemCount+=cart['items'][productId]['quantity'];
+        this.totalPrice+=parseInt(cart['items'][productId]['price'])
       }
     })
     // if(this.shoppingCartItemCount==0)
@@ -65,6 +68,7 @@ export class ShoppingCartComponent implements OnInit {
   {
    
     this.shoppingCartService.removeItem(product);
+    this.totalPrice-=parseInt(product['price']);
     // this.readingCart();
   }
 }

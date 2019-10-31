@@ -1,3 +1,7 @@
+<head>
+       
+       
+</head>
 <div *ngIf="product.title"  class="card" style="width: 15rem;">
     <img style="height:220px;width:auto;" src="..." class="card-img-top"        *ngIf="product.imageUrl" alt="{{product.title }}" [src]               ="product.imageUrl" >
     <div style="height: 35%" class="card-body">
@@ -6,7 +10,7 @@
         
     </div>
      <div *ngIf="showActions" class= "card-footer">
-        <button  (click)="addToCart()"   class="btn btn-secondary btn-block">Add to Cart  </button>
+        <button (click)="alertFunction()"   (click)="addToCart()"   class="btn btn-secondary btn-block">Add to Cart  </button>
         <!-- <ng-template #updateQuantity>
             <div class="row no-gutters">
                 <div class="col-3">

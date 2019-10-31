@@ -3,6 +3,7 @@ import { ShoppingCartService } from './../shopping-cart.service';
   import { ActivatedRoute } from '@angular/router';
 import { ProductService } from './../product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
 
     });
    }
+
   async ngOnInit() {
     (await this.cartService.getCart())
         .subscribe(cart=>this.cart=cart)

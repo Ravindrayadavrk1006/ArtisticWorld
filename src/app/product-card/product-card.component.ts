@@ -1,6 +1,5 @@
 import { ShoppingCartService } from './../shopping-cart.service';
 import { Component, OnInit, Input } from '@angular/core';
-
 @Component({
   selector: 'product-card',
   templateUrl: './product-card.component.html',
@@ -16,6 +15,14 @@ export class ProductCardComponent  {
   {
     this.cartService.addToCart(this.product);    
   }
+  // alertFunction()
+  //       {
+  //        swal({
+  //          title: "Good job!",
+  //          text: "Product is added to cart!",
+  //          icon: "success",
+  //        });
+  //       }
   removeFromCart()
   {
     this.cartService.removeFromCart(this.product);
