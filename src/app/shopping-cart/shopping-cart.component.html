@@ -1,0 +1,60 @@
+<!-- <h1>Shopping Cart</h1>
+<ng-container *ngIf="cart$|async as cart">
+        <p>
+                You have {{ shoppingCartItemCount}} items in your shopping Cart
+            </p>
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let productId of productIds">
+                    <td ><img id="imageId" [src]="cart['items'][productId]['imageUrl']" alt=""></td>
+                    <td>{{cart['items'][productId]['title']}}</td>
+                    <td>{{cart['items'][productId]['price']|currency:'INR':'symbol'}}</td>
+                    <td><button (click)="removeFromCart(cart['items'][productId],productId)" class="btn btn-danger">Remove from Cart</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+</ng-container> -->
+
+<h1>Shopping Cart</h1>
+<ng-container *ngIf="productCart$|async as cart">
+        <p>
+                You have {{ shoppingCartItemCount}} items in your shopping Cart
+        </p>
+        <table *ngIf=" shoppingCartItemCount>0" class="table">
+            <thead>
+                <tr>
+                    <th>  </th>
+                    <th>Product</th>
+                    <th class="text-center" style="width: 230px"> Price</th>
+                    <th></th>
+                 </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let c of cart'>
+                    <td >
+                        <img class="thumbnail" [src]="c['imageUrl']" alt=""></td>
+                    <td>{{c['title']}}</td> 
+                    <td class="text-center">{{c['price']|currency:'INR':'symbol'}}</td>
+                    <td
+                    class="text-right"
+                    ><button (click)="removeFromCart(c)" class="btn btn-danger">Remove from Cart</button></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <th></th>
+                <th></th>
+                <th style="font:green" class="text-center">{{totalPrice|currency:'INR':'symbol'}}</th>
+                <th></th>
+            </tfoot>
+        </table>
+</ng-container>
